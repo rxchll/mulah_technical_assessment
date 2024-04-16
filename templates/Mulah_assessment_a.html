@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title Aggregator</title>
+    <style>
+        ul {
+            line-height:1.7;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scraped Article Headlines from Verge.com</h1>
+    <ul>
+        {% for headline in headlines %}
+            <li><a href="{{ headline.hyperlink }}"><b>{{ headline.title }}</b></a> - Date published: {{ headline.date }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
 
