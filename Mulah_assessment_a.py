@@ -4,7 +4,6 @@ from datetime import datetime
 
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
 
 
 def extract_headlines():
@@ -46,17 +45,12 @@ response = requests.get(base_url)
 soup = BeautifulSoup(response.content, 'html.parser')
 
 app = FastAPI()
-templates = Jinja2Templates(directory="")
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 def index(request: Request):
     headlines = extract_headlines()
     sorted_headlines = filter_sort_headlines(headlines)
     print(sorted_headlines)
-    with open("index.html", "r") as html_file:
-        html_content = html_file.read()
-    return HTMLResponse(content=html_content)
+    return templates.TemplateResponse("Mulah_assessment_a.html", {"request": request, "headlines": sorted_headlines})
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
