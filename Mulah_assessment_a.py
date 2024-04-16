@@ -45,7 +45,7 @@ response = requests.get(base_url)
 soup = BeautifulSoup(response.content, 'html.parser')
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="")
 
 @app.get("/")
 def index(request: Request):
