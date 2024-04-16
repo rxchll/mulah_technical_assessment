@@ -52,8 +52,9 @@ def index(request: Request):
     headlines = extract_headlines()
     sorted_headlines = filter_sort_headlines(headlines)
     print(sorted_headlines)
-    return templates.TemplateResponse("index.html", {"request": request, "headlines": sorted_headlines})
-
+    with open("index.html", "r") as html_file:
+        html_content = html_file.read()
+    return HTMLResponse(content=html_content)
 
 if __name__ == "__main__":
     import uvicorn
