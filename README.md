@@ -1,1 +1,1 @@
-# mulah_technical_assessment_a
+# mulah_technical_assessment
