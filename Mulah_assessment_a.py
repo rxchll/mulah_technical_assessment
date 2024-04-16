@@ -52,5 +52,5 @@ def index(request: Request):
     headlines = extract_headlines()
     sorted_headlines = filter_sort_headlines(headlines)
     print(sorted_headlines)
-    return templates.TemplateResponse("Mulah_assessment_a.html", {"request": request, "headlines": sorted_headlines})
+    return templates.TemplateResponse("index.html", {"request": request, "headlines": sorted_headlines})
 
