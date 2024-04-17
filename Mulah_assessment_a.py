@@ -4,8 +4,6 @@ from datetime import datetime
 
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-from jinja2 import Environment, FileSystemLoader
-
 
 
 def extract_headlines():
@@ -47,28 +45,13 @@ response = requests.get(base_url)
 soup = BeautifulSoup(response.content, 'html.parser')
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+
 @app.get("/")
-def index():
+def index(request: Request):
     headlines = extract_headlines()
     sorted_headlines = filter_sort_headlines(headlines)
-    environment = Environment(loader=FileSystemLoader("templates/"))
-    template = environment.get_template("Mulah_assessment_a.html")
-
-    # Render the template with headlines data
-    content = template.render(headlines=sorted_headlines)
-
-    # Write the rendered HTML content to a file
-    with open("Mulah_assessment_a.html", mode="w", encoding="utf-8") as html_file:
-        html_file.write(content)
-
-# app = FastAPI()
-# templates = Jinja2Templates(directory="templates")
-
-# @app.get("/")
-# def index(request: Request):
-#     headlines = extract_headlines()
-#     sorted_headlines = filter_sort_headlines(headlines)
-#     print(sorted_headlines)
-#     return templates.TemplateResponse("Mulah_assessment_a.html", {"request": request, "headlines": sorted_headlines})
+    print(sorted_headlines)
+    return templates.TemplateResponse("Mulah_assessment_a.html", {"request": request, "headlines": sorted_headlines})
 
 
